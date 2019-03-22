@@ -14,12 +14,12 @@
         <repository>
             <id>nexus</id>
             <name>Releases</name>
-            <url>http://192.168.100.100:7071/repository/maven-releases/</url>
+            <url>http://dev.signetz.com:7071/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus</id>
             <name>Snapshot</name>
-            <url>http://192.168.100.100:7071/repository/maven-snapshots/</url>
+            <url>http://dev.signetz.com:7071/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -50,6 +50,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <duang.version>1.0-SNAPSHOT</duang.version>
         <mail.version>1.4.7</mail.version>
+        <oss.version>2.8.3</oss.version>
     </properties>
 
     <dependencies>
@@ -62,6 +63,11 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>${mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>${oss.version}</version>
         </dependency>
     </dependencies>
 
