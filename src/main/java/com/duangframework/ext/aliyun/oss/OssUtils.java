@@ -10,19 +10,27 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class OssUtils implements IClient<OSSClient> {
 
     private static final Logger logger = LoggerFactory.getLogger(OssUtils.class);
 
+    private static Lock lock = new ReentrantLock();
     private static OSSClient ossClient;
     private static OssUtils INSTANCE;
 
     public static OssUtils getInstance() {
-        synchronized (INSTANCE) {
-            if(ToolsKit.isEmpty(INSTANCE)) {
+        try {
+            if (ToolsKit.isEmpty(INSTANCE)) {
+                lock.lock();
                 INSTANCE = new OssUtils();
             }
+        } catch (Exception e) {
+            logger.warn("OssUtils getInstance is fail: " + e.getMessage(), e);
+        }finally {
+            lock.unlock();
         }
         return INSTANCE;
     }

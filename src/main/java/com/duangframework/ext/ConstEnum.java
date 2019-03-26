@@ -3,11 +3,11 @@ package com.duangframework.ext;
 public enum ConstEnum {;
 
     public enum  ALIYUN {
-        ACCESS_KEY_ID("","APP KEY"),
-        ACCESS_KEY_SECRET("","APP SECRET"),
+        ACCESS_KEY_ID("LTAID4F8gZO7HA4P","APP KEY"),
+        ACCESS_KEY_SECRET("7fe6lJZwfC7bsgS6Y6eCBobWAGY50n","APP SECRET"),
 
         // OSS
-        OSS_ENDPOINT("","OSS的链接地址"),
+        OSS_ENDPOINT("oss-cn-hangzhou.aliyuncs.com","OSS的链接地址"),
 
 
         ;private final String value;private final String desc;
