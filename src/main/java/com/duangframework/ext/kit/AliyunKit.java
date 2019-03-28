@@ -1,6 +1,7 @@
 package com.duangframework.ext.kit;
 
 import com.duangframework.ext.aliyun.oss.OssUtils;
+import com.duangframework.ext.aliyun.sms.SmsUtils;
 import com.duangframework.kit.ToolsKit;
 
 /**
@@ -13,12 +14,20 @@ import com.duangframework.kit.ToolsKit;
 public class AliyunKit {
 
     private static OssUtils ossUtils = null;
+    private static SmsUtils smsUtils = null;
 
     public static OssUtils oss() {
         if(ToolsKit.isEmpty(ossUtils)) {
             ossUtils = OssUtils.getInstance();
         }
         return ossUtils;
+    }
+
+    public static SmsUtils sms() {
+        if(ToolsKit.isEmpty(smsUtils)) {
+            smsUtils = SmsUtils.getInstance();
+        }
+        return smsUtils;
     }
 
 }

@@ -51,6 +51,7 @@
         <duang.version>1.0-SNAPSHOT</duang.version>
         <mail.version>1.4.7</mail.version>
         <oss.version>2.8.3</oss.version>
+        <aliyun-core.version>4.0.3</aliyun-core.version>
     </properties>
 
     <dependencies>
@@ -68,6 +69,11 @@
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
             <version>${oss.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>${aliyun-core.version}</version>
         </dependency>
     </dependencies>
 

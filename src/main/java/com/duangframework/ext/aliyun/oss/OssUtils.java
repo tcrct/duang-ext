@@ -23,8 +23,8 @@ public class OssUtils implements IClient<OSSClient> {
 
     public static OssUtils getInstance() {
         try {
+            lock.lock();
             if (ToolsKit.isEmpty(INSTANCE)) {
-                lock.lock();
                 INSTANCE = new OssUtils();
             }
         } catch (Exception e) {
