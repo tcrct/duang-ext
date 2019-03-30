@@ -24,5 +24,6 @@ hs_err_pid*
 /.idea/
 App.java
 AppTest.java
+ConstEnum.java
 
 
