@@ -8,7 +8,6 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-import com.duangframework.ext.ConstEnum;
 import com.duangframework.ext.IClient;
 import com.duangframework.ext.dto.sms.SmsMessage;
 import com.duangframework.ext.dto.sms.SmsResult;

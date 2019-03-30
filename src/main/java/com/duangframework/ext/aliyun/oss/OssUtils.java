@@ -2,7 +2,6 @@ package com.duangframework.ext.aliyun.oss;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.Bucket;
-import com.duangframework.ext.ConstEnum;
 import com.duangframework.ext.IClient;
 import com.duangframework.kit.ToolsKit;
 import org.slf4j.Logger;
