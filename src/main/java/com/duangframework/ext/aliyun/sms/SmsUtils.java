@@ -10,8 +10,8 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.duangframework.ext.ConstEnum;
 import com.duangframework.ext.IClient;
-import com.duangframework.ext.dto.sms.SmsMessageDto;
-import com.duangframework.ext.dto.sms.SmsResultDto;
+import com.duangframework.ext.dto.sms.SmsMessage;
+import com.duangframework.ext.dto.sms.SmsResult;
 import com.duangframework.kit.ToolsKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +63,7 @@ public class SmsUtils implements IClient<IAcsClient> {
      * @param SmsMessageDto       发送短信内容
      * @return
      */
-    public SmsResultDto send(SmsMessageDto messageDto) {
+    public SmsResult send(SmsMessage messageDto) {
         CommonRequest request = new CommonRequest();
         //request.setProtocol(ProtocolType.HTTPS);
         request.setMethod(MethodType.POST);
@@ -87,7 +87,7 @@ public class SmsUtils implements IClient<IAcsClient> {
         try {
             CommonResponse response = getClient().getCommonResponse(request);
             String json = response.getData();
-            return ToolsKit.jsonParseObject(json, SmsResultDto.class);
+            return ToolsKit.jsonParseObject(json, SmsResult.class);
         } catch (ServerException e) {
             logger.warn(e.getMessage(), e);
         } catch (ClientException e) {

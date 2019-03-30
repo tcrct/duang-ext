@@ -6,6 +6,9 @@ public enum ConstEnum {;
         ACCESS_KEY_ID("LTAID4F8gZO7HA4P","APP KEY"),
         ACCESS_KEY_SECRET("7fe6lJZwfC7bsgS6Y6eCBobWAGY50n","APP SECRET"),
 
+        // DNS
+        DNS_REGION_ID ("cn-hangzhou","dns必填固定值，必须为cn-hanghou"),
+
         // OSS
         OSS_ENDPOINT("oss-cn-hangzhou.aliyuncs.com","OSS的链接地址"),
 

@@ -3,17 +3,17 @@ package com.duangframework.ext.dto.sms;
 /**
  * 发送短信后返回的内容消息
  */
-public class SmsResultDto implements java.io.Serializable {
+public class SmsResult implements java.io.Serializable {
 
     private String Message;
     private String RequestId;
     private String BizId;
     private String Code;
 
-    public SmsResultDto() {
+    public SmsResult() {
     }
 
-    public SmsResultDto(String message, String requestId, String bizId, String code) {
+    public SmsResult(String message, String requestId, String bizId, String code) {
         Message = message;
         RequestId = requestId;
         BizId = bizId;
