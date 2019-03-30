@@ -8,6 +8,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
+import com.duangframework.ext.ConstEnum;
 import com.duangframework.ext.IClient;
 import com.duangframework.ext.dto.sms.SmsMessage;
 import com.duangframework.ext.dto.sms.SmsResult;
@@ -59,7 +60,7 @@ public class SmsUtils implements IClient<IAcsClient> {
 
     /**
      * 发送短信
-     * @param SmsMessageDto       发送短信内容
+     * @param SmsMessage       发送短信内容
      * @return
      */
     public SmsResult send(SmsMessage messageDto) {

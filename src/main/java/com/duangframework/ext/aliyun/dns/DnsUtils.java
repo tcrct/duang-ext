@@ -10,6 +10,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.duangframework.ext.ConstEnum;
 import com.duangframework.ext.IClient;
 import com.duangframework.kit.PropKit;
 import com.duangframework.kit.ToolsKit;
