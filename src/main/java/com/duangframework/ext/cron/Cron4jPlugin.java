@@ -80,7 +80,7 @@ public class Cron4jPlugin implements IPlugin {
                 logger.warn("cron exp[" + cronExp + "] exec method: " + cronTask.getCronTask().getClass().getName()+"."+cronTask.getMethod().getName());
             }
         }
-        scheduler.setDaemon(true);
+        scheduler.setDaemon(iCronTask.isDaemon());
         scheduler.start();
     }
 }
