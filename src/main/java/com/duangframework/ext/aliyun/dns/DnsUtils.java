@@ -10,7 +10,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-//import com.duangframework.ext.ConstEnum;
+import com.duangframework.ext.ConstEnum;
 import com.duangframework.ext.IClient;
 import com.duangframework.kit.PropKit;
 import com.duangframework.kit.ToolsKit;
@@ -71,15 +71,15 @@ public class DnsUtils implements IClient<IAcsClient> {
 		if(ToolsKit.isNotEmpty(dnsClient)) {
 			return dnsClient;
 		}
-//		IClientProfile profile = DefaultProfile.getProfile(ConstEnum.ALIYUN.DNS_REGION_ID.getValue(),
-//				ConstEnum.ALIYUN.ACCESS_KEY_ID.getValue(), ConstEnum.ALIYUN.ACCESS_KEY_SECRET.getValue());
-//		// 若报Can not find endpoint to access异常，请添加以下此行代码
-//		try {
-//			DefaultProfile.addEndpoint(ConstEnum.ALIYUN.DNS_REGION_ID.getValue(), ConstEnum.ALIYUN.DNS_REGION_ID.getValue(), PRODUCT, ALIDNS_DOMAIN);
-//		} catch (ClientException e) {
-//			e.printStackTrace();
-//		}
-//		dnsClient = new DefaultAcsClient(profile);
+		IClientProfile profile = DefaultProfile.getProfile(ConstEnum.ALIYUN.DNS_REGION_ID.getValue(),
+				ConstEnum.ALIYUN.ACCESS_KEY_ID.getValue(), ConstEnum.ALIYUN.ACCESS_KEY_SECRET.getValue());
+		// 若报Can not find endpoint to access异常，请添加以下此行代码
+		try {
+			DefaultProfile.addEndpoint(ConstEnum.ALIYUN.DNS_REGION_ID.getValue(), ConstEnum.ALIYUN.DNS_REGION_ID.getValue(), PRODUCT, ALIDNS_DOMAIN);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		dnsClient = new DefaultAcsClient(profile);
 		return dnsClient;
 	}
 
