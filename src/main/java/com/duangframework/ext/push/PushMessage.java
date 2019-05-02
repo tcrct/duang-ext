@@ -1,0 +1,111 @@
+package com.duangframework.ext.push;
+
+import com.duangframework.mvc.annotation.Bean;
+import com.duangframework.vtor.annotation.Length;
+import com.duangframework.vtor.annotation.NotEmpty;
+import com.duangframework.vtor.annotation.Range;
+import com.tencent.xinge.bean.TimeInterval;
+
+import java.util.List;
+
+/**
+ * Created by laotang on 2019/5/2.
+ */
+@Bean
+public class PushMessage implements java.io.Serializable {
+
+    // 标题，标题+内容不得超过 800 英文字符或 400 非英文字符
+    @NotEmpty
+    @Length(value = 400)
+    public String title;
+    // 内容，标题+内容不得超过 800 英文字符或 400
+    @NotEmpty
+    @Length(value = 400)
+    public String content;
+    // 消息离线存储多久，单位为秒，默认存储时间 3 天。
+    public Integer expireTime = 60 * 60 * 24 * 3;
+    // 消息定时推送的时间，格式为 year-mon-day hour:min:sec，若小于服务器当前时间则立即推送。选填，默认为空字符串，代表立即推送
+    public String sendTime;
+    // 元素为 TimeInterval 类型，表示允许推送的时间段，选填
+    public List<TimeInterval> acceptTime;
+    // 消息类型。0:通知； 1:透传消息。必填
+    @Range(value = {0, 1})
+    public Integer type = 0;
+
+    public PushMessage() {
+    }
+
+    public PushMessage(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public PushMessage(String title, String content, Integer expireTime, String sendTime, List<TimeInterval> acceptTime, Integer type) {
+        this.title = title;
+        this.content = content;
+        this.expireTime = expireTime;
+        this.sendTime = sendTime;
+        this.acceptTime = acceptTime;
+        this.type = type;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Integer getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Integer expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    public String getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(String sendTime) {
+        this.sendTime = sendTime;
+    }
+
+    public List<TimeInterval> getAcceptTime() {
+        return acceptTime;
+    }
+
+    public void setAcceptTime(List<TimeInterval> acceptTime) {
+        this.acceptTime = acceptTime;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "PushMessage{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", expireTime=" + expireTime +
+                ", sendTime='" + sendTime + '\'' +
+                ", acceptTime=" + acceptTime +
+                ", type=" + type +
+                '}';
+    }
+}

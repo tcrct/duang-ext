@@ -23,6 +23,13 @@
         </snapshotRepository>
     </distributionManagement>
 
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>xingePush</id>-->
+            <!--<url>https://raw.githubusercontent.com/xingePush/maven-repository/snapshot/</url>-->
+        <!--</repository>-->
+    <!--</repositories>-->
+
     <build>
         <defaultGoal>compile</defaultGoal>
         <plugins>
@@ -54,6 +61,7 @@
         <aliyun-core.version>4.0.3</aliyun-core.version>
         <dns.version>2.0.6</dns.version>
         <cron4j.version>2.2.5</cron4j.version>
+        <xinge.version>1.2.0-SNAPSHOT</xinge.version>
     </properties>
 
     <dependencies>
@@ -86,6 +94,13 @@
             <groupId>it.sauronsoftware.cron4j</groupId>
             <artifactId>cron4j</artifactId>
             <version>${cron4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xingePush</groupId>
+            <artifactId>xinge</artifactId>
+            <version>${xinge.version}</version>
+            <scope>system</scope>
+            <systemPath>C:/workspace/java/duang-ext/lib/xinge-1.2.0-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
 
