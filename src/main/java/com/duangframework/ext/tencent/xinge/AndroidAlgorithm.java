@@ -1,10 +1,8 @@
 package com.duangframework.ext.tencent.xinge;
 
-import com.duangframework.ext.IClient;
 import com.duangframework.ext.push.IPushAlgorithm;
 import com.duangframework.ext.push.PushRequest;
 import com.duangframework.ext.push.PushResponse;
-import com.duangframework.kit.ToolsKit;
 import com.tencent.xinge.Message;
 import com.tencent.xinge.XingeApp;
 import org.json.JSONObject;
@@ -12,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *

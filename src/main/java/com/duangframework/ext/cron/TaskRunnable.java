@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Method;
 
 /**
+ * 线程执行定时任务类
+ * 将实现了ICronTask的类下的每个方法以线程的方式来执行。
  *
  * Created by laotang on 2019/4/27.
  */

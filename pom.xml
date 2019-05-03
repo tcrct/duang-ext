@@ -100,7 +100,7 @@
             <artifactId>xinge</artifactId>
             <version>${xinge.version}</version>
             <scope>system</scope>
-            <systemPath>C:/workspace/IdeaProjects/duang-ext/lib/PushJavaSDK.jar</systemPath>
+            <systemPath>C:/workspace/java/duang-ext/lib/PushJavaSDK.jar</systemPath>
         </dependency>
     </dependencies>
 
