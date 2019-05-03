@@ -1,15 +1,19 @@
 package com.duangframework.ext.push;
 
-import com.alibaba.fastjson.JSONObject;
 import com.duangframework.ext.IClient;
 
 /**
- * Created by laotang on 2019/5/1.
+ * @author laotang
+ * @date 2019/5/3
+ * @param <T>
  */
 public interface IPush<T> extends IClient<T> {
 
     /**
-     * 推送消息到单个设备
+     * 取推送算法
+     * @param isAndroid     是否安卓机
+     * @return
      */
-    JSONObject pushSingleDevice(PushMessage message);
+    IPushAlgorithm getPushAlgorithm(boolean isAndroid);
+
 }

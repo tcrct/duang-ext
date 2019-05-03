@@ -35,6 +35,10 @@ public class OssUtils implements IClient<OSSClient> {
         return INSTANCE;
     }
 
+    private OssUtils(){
+
+    }
+
     @Override
     public OSSClient getClient() throws Exception {
         if(ToolsKit.isEmpty(ossClient)) {

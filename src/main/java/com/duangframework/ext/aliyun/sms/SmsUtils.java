@@ -42,6 +42,10 @@ public class SmsUtils implements IClient<IAcsClient> {
         return INSTANCE;
     }
 
+    private SmsUtils(){
+
+    }
+
     // 创建Client实例
     @Override
     public IAcsClient getClient() throws Exception {
