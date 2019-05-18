@@ -74,8 +74,8 @@ public class PushKit {
     }
 
     /**
-     * 帐号
-     * @param account
+     * 是否android手机
+     * @param isAndroid
      * @return
      */
     public PushKit isAndroid(boolean isAndroid) {
