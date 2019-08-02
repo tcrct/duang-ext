@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by laotang on 2019/3/1.
+ * 推送工具类
+ *
+ * @author laotang
  */
 public class PushKit {
 

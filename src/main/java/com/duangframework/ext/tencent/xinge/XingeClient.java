@@ -24,7 +24,7 @@ public class XingeClient implements IPush<XingeApp> {
         return INSTANCE;
     }
 
-    public XingeClient(){
+    private XingeClient(){
     }
 
     @Override

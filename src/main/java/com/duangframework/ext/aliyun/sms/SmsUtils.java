@@ -64,7 +64,7 @@ public class SmsUtils implements IClient<IAcsClient> {
 
     /**
      * 发送短信
-     * @param SmsMessage       发送短信内容
+     * @param messageDto       发送短信内容
      * @return
      */
     public SmsResult send(SmsMessage messageDto) {

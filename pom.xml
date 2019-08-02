@@ -58,7 +58,8 @@
         <duang.version>1.0-SNAPSHOT</duang.version>
         <mail.version>1.4.7</mail.version>
         <oss.version>2.8.3</oss.version>
-        <aliyun-core.version>4.0.3</aliyun-core.version>
+        <aliyun-core.version>4.3.2</aliyun-core.version>
+        <aliyun-push.version>3.10.1</aliyun-push.version>
         <dns.version>2.0.6</dns.version>
         <cron4j.version>2.2.5</cron4j.version>
         <xinge.version>1.2.0-SNAPSHOT</xinge.version>
@@ -91,6 +92,11 @@
             <version>${aliyun-core.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-push</artifactId>
+            <version>${aliyun-push.version}</version>
+        </dependency>
+        <dependency>
             <groupId>it.sauronsoftware.cron4j</groupId>
             <artifactId>cron4j</artifactId>
             <version>${cron4j.version}</version>
@@ -102,6 +108,7 @@
             <scope>system</scope>
             <systemPath>C:/workspace/IdeaProjects/duang-ext/lib/PushJavaSDK.jar</systemPath>
         </dependency>
+
     </dependencies>
 
 

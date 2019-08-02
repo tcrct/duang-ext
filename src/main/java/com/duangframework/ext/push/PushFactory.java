@@ -1,5 +1,6 @@
 package com.duangframework.ext.push;
 
+import com.duangframework.ext.aliyun.push.AliPushClient;
 import com.duangframework.ext.tencent.xinge.XingeClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +23,12 @@ public class PushFactory {
      * @return
      */
     private static IPushAlgorithm getPushAlgorithm(boolean isAndroid) {
+        // 如需更改推送厂商，实现对应的手机端推送API后，再更改以下代码，其余代码不需要改变
         if(null == push) {
-            // 如需更改推送厂商，实现对应的手机端推送API后，再更改以下代码，其余代码不需要改变
-            push = new XingeClient();
+             // 信鸽
+//            push = XingeClient.getInstance();
+            // 阿里云
+            push = AliPushClient.getInstance();
         }
         return push.getPushAlgorithm(isAndroid);
     }

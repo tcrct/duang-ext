@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- *
+ *信鸽IOS算法
  * @author laotang
  * @date 2019/5/1
  */

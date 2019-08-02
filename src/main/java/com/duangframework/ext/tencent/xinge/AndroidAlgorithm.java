@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
+ * 信鸽安卓推送算法
  *
  * @author laotang
  * @date 2019/5/1

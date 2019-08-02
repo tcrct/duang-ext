@@ -21,6 +21,12 @@ public class PushResponse implements java.io.Serializable {
     public PushResponse() {
     }
 
+    public PushResponse(Integer retCode, String result, String errMsg) {
+        this.retCode = retCode;
+        this.result = result;
+        this.errMsg = errMsg;
+    }
+
     public PushResponse getXingeResult(JSONObject jsonObject) {
         if(ToolsKit.isNotEmpty(jsonObject)) {
             retCode = jsonObject.getInt(RET_CODE);
