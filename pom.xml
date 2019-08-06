@@ -63,6 +63,7 @@
         <dns.version>2.0.6</dns.version>
         <cron4j.version>2.2.5</cron4j.version>
         <xinge.version>1.2.0-SNAPSHOT</xinge.version>
+        <easyexcel.version>1.1.2-beta5</easyexcel.version>
     </properties>
 
     <dependencies>
@@ -108,8 +109,11 @@
             <scope>system</scope>
             <systemPath>C:/workspace/IdeaProjects/duang-ext/lib/PushJavaSDK.jar</systemPath>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
+        </dependency>
     </dependencies>
-
-
 </project>
