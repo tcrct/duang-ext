@@ -86,22 +86,12 @@ public class PushKit {
     }
 
     /**
-     * 标签
-     * @param tagsList
+     * 标签、别名、用户ID等批量发送
+     * @param tagsList  标签、别名
      * @return
      */
     public PushKit tags(List<String> tagsList) {
         PushKit.tagsList.addAll(tagsList);
-        return this;
-    }
-
-    /**
-     *
-     * @param idList
-     * @return
-     */
-    public PushKit ids(List<String> idList) {
-        PushKit.tagsList.addAll(idList);
         return this;
     }
 
@@ -127,18 +117,18 @@ public class PushKit {
         return null;
     }
     public PushResponse pushAllDevice() {
-        return PushFactory.pushAllDevice(pushRequest.isAndroid());
+        return PushFactory.pushAllDevice(pushRequest);
     }
     public PushResponse pushTags() {
         if(ToolsKit.isEmpty(tagsList)) {
             throw new ServiceException("请先调用[tags]方法，设置需要查询的tag集合");
         }
-        return PushFactory.pushTags(pushRequest.isAndroid(), tagsList);
+        return PushFactory.pushTags(tagsList, pushRequest);
     }
     public PushResponse queryPushStatus() {
         if(ToolsKit.isEmpty(tagsList)) {
-            throw new ServiceException("请先调用[ids]方法，设置需要查询的ID集合");
+            throw new ServiceException("请先调用[tags]方法，设置需要查询的ID集合");
         }
-        return PushFactory.queryPushStatus(pushRequest.isAndroid(), tagsList);
+        return PushFactory.queryPushStatus(tagsList, pushRequest);
     }
 }

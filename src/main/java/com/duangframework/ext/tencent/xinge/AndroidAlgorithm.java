@@ -67,8 +67,8 @@ public class AndroidAlgorithm implements IPushAlgorithm {
     }
 
     @Override
-    public PushResponse pushAllDevice() {
-        Message message = XingeUtils.convert2Message(null);
+    public PushResponse pushAllDevice(PushRequest pushRequest) {
+        Message message = XingeUtils.convert2Message(pushRequest);
         try {
             return XingeUtils.convert2Response(getClient().pushAllDevice(DEVICE_TYPE, message));
         } catch (Exception e) {
@@ -78,8 +78,8 @@ public class AndroidAlgorithm implements IPushAlgorithm {
     }
 
     @Override
-    public PushResponse pushTags(List<String> tagList) {
-        Message message = XingeUtils.convert2Message(null);
+    public PushResponse pushTags(List<String> tagList, PushRequest pushRequest) {
+        Message message = XingeUtils.convert2Message(pushRequest);
         try {
             return XingeUtils.convert2Response(getClient().pushTags(DEVICE_TYPE, tagList, "OR", message));
         } catch (Exception e) {

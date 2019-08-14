@@ -1,53 +1,44 @@
-package com.duangframework.ext.aliyun.push;
+package com.duangframework.ext.getui;
 
-import com.aliyuncs.IAcsClient;
 import com.duangframework.ext.push.IPushAlgorithm;
 import com.duangframework.ext.push.PushRequest;
 import com.duangframework.ext.push.PushResponse;
+import com.gexin.rp.sdk.base.IPushResult;
+import com.gexin.rp.sdk.http.IGtPush;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- * 阿里云推送(Android/iOS)封装
+ * 个推推送(Android/iOS)封装
  * @author laotang
  */
-public class AliyunPushAlgorithm implements IPushAlgorithm {
+public class GetUiPushAlgorithm implements IPushAlgorithm {
 
-    private final static Logger logger = LoggerFactory.getLogger(AliyunPushAlgorithm.class);
+    private final static Logger logger = LoggerFactory.getLogger(GetUiPushAlgorithm.class);
 
-    private static AliyunPushAlgorithm INSTANCE = new AliyunPushAlgorithm();
-    private static Integer RET_SUCCESS_CODE = 0;
+    private static GetUiPushAlgorithm INSTANCE = new GetUiPushAlgorithm();
     private static Integer RET_ERROR_CODE = 1;
-    private static String RET_SUCCESS = "success";
     private static String RET_ERROR = "error";
 
-    public static AliyunPushAlgorithm getInstance() {
+    public static GetUiPushAlgorithm getInstance() {
         return INSTANCE;
     }
 
-    private IAcsClient getClient(){
+    private IGtPush getClient(){
         try {
-            return AliPushClient.getInstance().getClient();
+            return GetUiPushClient.getInstance().getClient();
         } catch (Exception e) {
             throw new NullPointerException(e.getMessage());
         }
     }
 
-    private PushResponse push(String target) {
+    private PushResponse push(PushRequest pushRequest) {
         try{
-            return push(target, null);
-        }catch (Exception e) {
-            throw e;
-        }
-    }
-    private PushResponse push(String target, PushRequest pushRequest) {
-        try {
-            com.aliyuncs.push.model.v20160801.PushResponse aliyunPushResponse = getClient().getAcsResponse(
-                    AliPushUtils.createAliyunPushRequest(target, pushRequest));
-            logger.warn("RequestId: %s, MessageID: %s\n", aliyunPushResponse.getRequestId(), aliyunPushResponse.getMessageId());
-            return new PushResponse(RET_SUCCESS_CODE, RET_SUCCESS, "");
+            GetUiPushRequestDto requestDto = GetUiPushUtils.pushMessageToSingle(pushRequest);
+            IPushResult pushResult = getClient().pushMessageToSingle(requestDto.getSingleMessage(), requestDto.getTargets().get(0));
+            return GetUiPushUtils.createPushResponse(pushResult);
         } catch (Exception e) {
             return new PushResponse(RET_ERROR_CODE, RET_ERROR, e.getMessage());
         }
@@ -56,7 +47,7 @@ public class AliyunPushAlgorithm implements IPushAlgorithm {
     @Override
     public PushResponse pushSingleDevice(PushRequest pushRequest) {
         try {
-            return push("DEVICE", pushRequest);
+            return null;
         } catch (Exception e) {
             return new PushResponse(RET_ERROR_CODE, RET_ERROR, e.getMessage());
         }
@@ -66,7 +57,7 @@ public class AliyunPushAlgorithm implements IPushAlgorithm {
     @Override
     public PushResponse pushSingleAccount(PushRequest pushRequest) {
         try {
-            return push("ACCOUNT", pushRequest);
+            return push(pushRequest);
         } catch (Exception e) {
             return new PushResponse(RET_ERROR_CODE, RET_ERROR, e.getMessage());
         }
@@ -75,16 +66,22 @@ public class AliyunPushAlgorithm implements IPushAlgorithm {
     @Override
     public PushResponse pushAllDevice(PushRequest pushRequest) {
         try {
-            return push("DEVICE");
+            GetUiPushRequestDto requestDto = GetUiPushUtils.pushMessageToApp(pushRequest.getTitle(), pushRequest.getContent());
+            IPushResult pushResult =  getClient().pushMessageToApp(requestDto.getAppMessage());
+            return GetUiPushUtils.createPushResponse(pushResult);
         } catch (Exception e) {
             return new PushResponse(RET_ERROR_CODE, RET_ERROR, e.getMessage());
         }
     }
 
     @Override
-    public PushResponse pushTags(List<String> tagsList,PushRequest pushRequest) {
+    public PushResponse pushTags(List<String> tagsList, PushRequest pushRequest) {
         try {
-            return push("TAG");
+            GetUiPushRequestDto requestDto = GetUiPushUtils.pushMessageToList(tagsList, pushRequest.getTitle(), pushRequest.getContent() );
+            // taskId用于在推送时去查找对应的message
+            String taskId = getClient().getContentId(requestDto.getListMessage());
+            IPushResult pushResult =  getClient().pushMessageToList(taskId, requestDto.getTargets());
+            return GetUiPushUtils.createPushResponse(pushResult);
         } catch (Exception e) {
             return new PushResponse(RET_ERROR_CODE, RET_ERROR, e.getMessage());
         }
@@ -92,8 +89,6 @@ public class AliyunPushAlgorithm implements IPushAlgorithm {
 
     /**
      * 没实现
-     * https://github.com/aliyun/alicloud-ams-demo/blob/master/OpenApi2.0/push-openapi-java-demo/src/test/java/com/aliyun/push/demoTest/StatTest.java
-     * @param pushIdList
      * @return
      */
     @Override

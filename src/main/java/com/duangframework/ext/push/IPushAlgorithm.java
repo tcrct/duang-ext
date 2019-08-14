@@ -21,12 +21,12 @@ public interface IPushAlgorithm {
      * 推送消息给单个 app 的所有设备
      * @return
      */
-    PushResponse pushAllDevice();
+    PushResponse pushAllDevice(PushRequest pushRequest);
 
     /**
      *  推送消息给 tags 指定的设备
      */
-    PushResponse pushTags(List<String> tagsList);
+    PushResponse pushTags(List<String> tagsList, PushRequest pushRequest);
 
     /**
      *查询群发消息发送状态

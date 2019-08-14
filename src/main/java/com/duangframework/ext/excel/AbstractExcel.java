@@ -134,6 +134,7 @@ public abstract class AbstractExcel<T> implements IExcel<T> {
         } else {
             fields = exportFieldList.toArray(new Field[]{});
         }
+        exportFieldList.clear();
         for (Field field : fields) {
             List<String> headCoulumn = new ArrayList<>();
             Param param = field.getAnnotation(Param.class);

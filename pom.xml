@@ -30,6 +30,13 @@
         <!--</repository>-->
     <!--</repositories>-->
 
+    <repositories>
+        <repository>
+            <id>getui-nexus</id>
+            <url>http://mvn.gt.igexin.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+
     <build>
         <defaultGoal>compile</defaultGoal>
         <plugins>
@@ -45,7 +52,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>1.8</source>
-                    <target>1.8</target>
+                    <targets>1.8</targets>
                 </configuration>
             </plugin>
         </plugins>
@@ -54,7 +61,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.targets>1.8</maven.compiler.targets>
         <duang.version>1.0-SNAPSHOT</duang.version>
         <mail.version>1.4.7</mail.version>
         <oss.version>2.8.3</oss.version>
@@ -64,6 +71,8 @@
         <cron4j.version>2.2.5</cron4j.version>
         <xinge.version>1.2.0-SNAPSHOT</xinge.version>
         <easyexcel.version>1.1.2-beta5</easyexcel.version>
+        <flying.version>9.1.18</flying.version>
+        <gexin.version>4.1.0.4</gexin.version>
     </properties>
 
     <dependencies>
@@ -115,5 +124,17 @@
             <artifactId>easyexcel</artifactId>
             <version>${easyexcel.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf -->
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>${flying.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gexin.platform</groupId>
+            <artifactId>gexin-rp-sdk-http</artifactId>
+            <version>${gexin.version}</version>
+        </dependency>
+
     </dependencies>
 </project>

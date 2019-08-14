@@ -1,6 +1,7 @@
 package com.duangframework.ext.push;
 
 import com.duangframework.ext.aliyun.push.AliPushClient;
+import com.duangframework.ext.getui.GetUiPushClient;
 import com.duangframework.ext.tencent.xinge.XingeClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,9 @@ public class PushFactory {
              // 信鸽
 //            push = XingeClient.getInstance();
             // 阿里云
-            push = AliPushClient.getInstance();
+//            push = AliPushClient.getInstance();
+            // 个推
+            push = GetUiPushClient.getInstance();
         }
         return push.getPushAlgorithm(isAndroid);
     }
@@ -51,27 +54,27 @@ public class PushFactory {
         }
     }
 
-    public static PushResponse pushAllDevice(boolean isAndroid) {
+    public static PushResponse pushAllDevice(PushRequest pushRequest) {
         try {
-            return getPushAlgorithm(isAndroid).pushAllDevice();
+            return getPushAlgorithm(pushRequest.isAndroid()).pushAllDevice(pushRequest);
         } catch (Exception e) {
             logger.warn("pushAllDevice is fail: "+e.getMessage(), e);
             return null;
         }
     }
 
-    public static PushResponse pushTags(boolean isAndroid, List<String> tagsList) {
+    public static PushResponse pushTags(List<String> tagsList, PushRequest pushRequest) {
         try {
-            return getPushAlgorithm(isAndroid).pushTags(tagsList);
+            return getPushAlgorithm(pushRequest.isAndroid()).pushTags(tagsList, pushRequest);
         } catch (Exception e) {
             logger.warn("pushTags is fail: "+e.getMessage(), e);
             return null;
         }
     }
 
-    public static PushResponse queryPushStatus(boolean isAndroid, List<String> idList) {
+    public static PushResponse queryPushStatus(List<String> idList, PushRequest pushRequest) {
         try {
-            return getPushAlgorithm(isAndroid).queryPushStatus(idList);
+            return getPushAlgorithm(pushRequest.isAndroid()).queryPushStatus(idList);
         } catch (Exception e) {
          logger.warn("queryPushStatus is fail: "+e.getMessage(), e);
          return null;

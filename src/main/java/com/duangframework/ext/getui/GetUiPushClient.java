@@ -1,32 +1,30 @@
-package com.duangframework.ext.aliyun.push;
+package com.duangframework.ext.getui;
 
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.IAcsClient;
-import com.aliyuncs.profile.DefaultProfile;
-import com.aliyuncs.profile.IClientProfile;
 import com.duangframework.ext.ConstEnum;
+import com.duangframework.ext.aliyun.push.AliyunPushAlgorithm;
 import com.duangframework.ext.push.IPush;
 import com.duangframework.ext.push.IPushAlgorithm;
 import com.duangframework.kit.ToolsKit;
+import com.gexin.rp.sdk.http.IGtPush;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class AliPushClient implements IPush<IAcsClient> {
+public class GetUiPushClient implements IPush<IGtPush> {
 
-    private static final Logger logger = LoggerFactory.getLogger(AliPushClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(GetUiPushClient.class);
 
     private static Lock lock = new ReentrantLock();
-    private static IAcsClient pushClient;
-    private static AliPushClient INSTANCE;
+    private static IGtPush pushClient;
+    private static GetUiPushClient INSTANCE;
 
-    public static AliPushClient getInstance() {
+    public static GetUiPushClient getInstance() {
         try {
             lock.lock();
             if (ToolsKit.isEmpty(INSTANCE)) {
-                INSTANCE = new AliPushClient();
+                INSTANCE = new GetUiPushClient();
             }
         } catch (Exception e) {
             logger.warn("AliPushClient getInstance is fail: " + e.getMessage(), e);
@@ -36,15 +34,14 @@ public class AliPushClient implements IPush<IAcsClient> {
         return INSTANCE;
     }
 
-    private AliPushClient(){
+    private GetUiPushClient(){
 
     }
 
     @Override
-    public IAcsClient getClient() throws Exception {
+    public IGtPush getClient() throws Exception {
         if(ToolsKit.isEmpty(pushClient)) {
-            IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", ConstEnum.ALIYUN.ACCESS_KEY_ID.getValue(), ConstEnum.ALIYUN.ACCESS_KEY_SECRET.getValue());
-            pushClient = new DefaultAcsClient(profile);
+            pushClient = new IGtPush(ConstEnum.GETUI.URl.getValue(), ConstEnum.GETUI.ACCESS_KEY_ID.getValue(), ConstEnum.GETUI.ACCESS_KEY_SECRET.getValue());
         }
         return pushClient;
     }
@@ -56,6 +53,6 @@ public class AliPushClient implements IPush<IAcsClient> {
 
     @Override
     public IPushAlgorithm getPushAlgorithm(boolean isAndroid) {
-        return AliyunPushAlgorithm.getInstance();
+        return GetUiPushAlgorithm.getInstance();
     }
 }

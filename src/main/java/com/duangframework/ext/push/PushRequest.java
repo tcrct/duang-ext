@@ -41,6 +41,8 @@ public class PushRequest implements java.io.Serializable {
     private Integer type = 0;
     /**是否安卓手机，默认为true*/
     private boolean isAndroid = true;
+    /**点击打开的链接地址*/
+    private String targetUrl;
 
 
     public PushRequest() {
@@ -58,7 +60,7 @@ public class PushRequest implements java.io.Serializable {
         this.content = content;
     }
 
-    public PushRequest(String token, String title, String content, Integer expireTime, String sendTime, TimeInterval acceptTime, Integer type) {
+    public PushRequest(String token, String title, String content, Integer expireTime, String sendTime, TimeInterval acceptTime, Integer type, String targetUrl) {
         this.token = token;
         this.title = title;
         this.content = content;
@@ -66,6 +68,7 @@ public class PushRequest implements java.io.Serializable {
         this.sendTime = sendTime;
         this.acceptTime = acceptTime;
         this.type = type;
+        this.targetUrl = targetUrl;
     }
 
     public String getAccount() {
@@ -140,6 +143,14 @@ public class PushRequest implements java.io.Serializable {
         isAndroid = android;
     }
 
+    public String getTargetUrl() {
+        return targetUrl;
+    }
+
+    public void setTargetUrl(String targetUrl) {
+        this.targetUrl = targetUrl;
+    }
+
     @Override
     public String toString() {
         return "PushRequest{" +
@@ -152,6 +163,7 @@ public class PushRequest implements java.io.Serializable {
                 ", acceptTime=" + acceptTime +
                 ", type=" + type +
                 ", isAndroid=" + isAndroid +
+                ", targetUrl=" + targetUrl +
                 '}';
     }
 }
