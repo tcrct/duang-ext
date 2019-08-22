@@ -70,8 +70,8 @@ public class IosAlgorithm implements IPushAlgorithm {
     }
 
     @Override
-    public PushResponse pushAllDevice() {
-        MessageIOS message = XingeUtils.convert2MessageIos(null);
+    public PushResponse pushAllDevice(PushRequest pushRequest) {
+        MessageIOS message = XingeUtils.convert2MessageIos(pushRequest);
         try {
             return XingeUtils.convert2Response(getClient().pushAllDevice(DEVICE_TYPE, message, getIosEnv()));
         } catch (Exception e) {
@@ -81,8 +81,8 @@ public class IosAlgorithm implements IPushAlgorithm {
     }
 
     @Override
-    public PushResponse pushTags(List<String> tagsList) {
-        MessageIOS message = XingeUtils.convert2MessageIos(null);
+    public PushResponse pushTags(List<String> tagsList, PushRequest pushRequest) {
+        MessageIOS message = XingeUtils.convert2MessageIos(pushRequest);
         try {
             return XingeUtils.convert2Response(getClient().pushTags(DEVICE_TYPE, tagsList, "OR", message, getIosEnv()));
         } catch (Exception e) {

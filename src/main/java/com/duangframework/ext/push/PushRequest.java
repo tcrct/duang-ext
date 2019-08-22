@@ -1,5 +1,6 @@
 package com.duangframework.ext.push;
 
+import com.duangframework.ext.dto.sms.SmsMessage;
 import com.duangframework.mvc.annotation.Bean;
 import com.duangframework.vtor.annotation.Length;
 import com.duangframework.vtor.annotation.NotEmpty;
@@ -44,6 +45,10 @@ public class PushRequest implements java.io.Serializable {
     /**点击打开的链接地址*/
     private String targetUrl;
 
+    /**如需要短信补发，则设置
+     * http://docs.getui.com/getui/server/java/push
+     */
+    private SmsMessage smsMessage;
 
     public PushRequest() {
     }
@@ -149,6 +154,14 @@ public class PushRequest implements java.io.Serializable {
 
     public void setTargetUrl(String targetUrl) {
         this.targetUrl = targetUrl;
+    }
+
+    public SmsMessage getSmsMessage() {
+        return smsMessage;
+    }
+
+    public void setSmsMessage(SmsMessage smsMessage) {
+        this.smsMessage = smsMessage;
     }
 
     @Override

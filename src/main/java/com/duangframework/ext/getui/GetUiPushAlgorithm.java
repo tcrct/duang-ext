@@ -1,14 +1,18 @@
 package com.duangframework.ext.getui;
 
+import com.duangframework.ext.ConstEnum;
+import com.duangframework.ext.dto.sms.SmsMessage;
 import com.duangframework.ext.push.IPushAlgorithm;
 import com.duangframework.ext.push.PushRequest;
 import com.duangframework.ext.push.PushResponse;
+import com.duangframework.kit.ToolsKit;
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.http.IGtPush;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 个推推送(Android/iOS)封装
@@ -37,6 +41,10 @@ public class GetUiPushAlgorithm implements IPushAlgorithm {
     private PushResponse push(PushRequest pushRequest) {
         try{
             GetUiPushRequestDto requestDto = GetUiPushUtils.pushMessageToSingle(pushRequest);
+            Map<String,String> smsMap = GetUiPushUtils.bindCidPnMap(pushRequest);
+            if(ToolsKit.isNotEmpty(smsMap)) {
+                getClient().bindCidPn(ConstEnum.GETUI.APP_ID.getValue(), smsMap);
+            }
             IPushResult pushResult = getClient().pushMessageToSingle(requestDto.getSingleMessage(), requestDto.getTargets().get(0));
             return GetUiPushUtils.createPushResponse(pushResult);
         } catch (Exception e) {
@@ -66,7 +74,8 @@ public class GetUiPushAlgorithm implements IPushAlgorithm {
     @Override
     public PushResponse pushAllDevice(PushRequest pushRequest) {
         try {
-            GetUiPushRequestDto requestDto = GetUiPushUtils.pushMessageToApp(pushRequest.getTitle(), pushRequest.getContent());
+            GetUiPushRequestDto requestDto = GetUiPushUtils.pushMessageToApp(pushRequest);
+            System.out.println(requestDto);
             IPushResult pushResult =  getClient().pushMessageToApp(requestDto.getAppMessage());
             return GetUiPushUtils.createPushResponse(pushResult);
         } catch (Exception e) {

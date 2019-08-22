@@ -1,6 +1,7 @@
 package com.duangframework.ext.kit;
 
 import com.duangframework.exception.ServiceException;
+import com.duangframework.ext.dto.sms.SmsMessage;
 import com.duangframework.ext.push.PushFactory;
 import com.duangframework.ext.push.PushRequest;
 import com.duangframework.ext.push.PushResponse;
@@ -72,6 +73,11 @@ public class PushKit {
      */
     public PushKit account(String account) {
         pushRequest.setAccount(account);
+        return this;
+    }
+
+    public PushKit sms(SmsMessage smsMessage) {
+        pushRequest.setSmsMessage(smsMessage);
         return this;
     }
 

@@ -1,7 +1,6 @@
 package com.duangframework.ext.getui;
 
 import com.duangframework.ext.ConstEnum;
-import com.duangframework.ext.aliyun.push.AliyunPushAlgorithm;
 import com.duangframework.ext.push.IPush;
 import com.duangframework.ext.push.IPushAlgorithm;
 import com.duangframework.kit.ToolsKit;
@@ -41,7 +40,7 @@ public class GetUiPushClient implements IPush<IGtPush> {
     @Override
     public IGtPush getClient() throws Exception {
         if(ToolsKit.isEmpty(pushClient)) {
-            pushClient = new IGtPush(ConstEnum.GETUI.URl.getValue(), ConstEnum.GETUI.ACCESS_KEY_ID.getValue(), ConstEnum.GETUI.ACCESS_KEY_SECRET.getValue());
+            pushClient = new IGtPush(ConstEnum.GETUI.URl.getValue(), ConstEnum.GETUI.ACCESS_KEY.getValue(), ConstEnum.GETUI.MASTER_SECRET.getValue());
         }
         return pushClient;
     }
