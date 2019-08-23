@@ -16,7 +16,10 @@ import com.duangframework.kit.ToolsKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -77,17 +80,33 @@ public class SmsUtils implements IClient<IAcsClient> {
         if(ToolsKit.isEmpty(phoneList)) {
             throw new NullPointerException("sned sms message is fail: phone is null");
         }
+        request.putQueryParameter(ConstEnum.ALIYUN.SMS_CODE_FIELD.getValue(), messageDto.getTemplateCode());
+        // 批量发送
         if(phoneList.size() > 1) {
             request.setAction(ConstEnum.ALIYUN.SMS_SEND_BATCH_SMS_FIELD.getValue());
-            request.putQueryParameter(ConstEnum.ALIYUN.SMS_PHONE_NUMBER_FIELD.getValue(), ToolsKit.toJsonString(phoneList));
+            String phoneString = ToolsKit.toJsonString(phoneList);
+            request.putQueryParameter(ConstEnum.ALIYUN.SMS_PHONE_NUMBER_JSON_FIELD.getValue(), phoneString);
+            Map<String,String> paramMap = messageDto.getTemplateParam();
+            int len = phoneList.size();
+            List<String> signList = new ArrayList<>(len);
+            List<Map<String,String>> paramList = new ArrayList<>(len);
+            for(int i=0; i<len; i++) {
+                signList.add(ConstEnum.ALIYUN.SMS_SIGN_NAME.getValue());
+                paramList.add(paramMap);
+            }
+            String paramsJson = ToolsKit.toJsonString(paramList);
+            String signString = ToolsKit.toJsonString(signList);
+            request.putQueryParameter(ConstEnum.ALIYUN.SMS_SIGN_NAME_JSON_FIELD.getValue(), signString);
+            request.putQueryParameter(ConstEnum.ALIYUN.SMS_PARAM_JSON_FIELD.getValue(), paramsJson);
         } else {
+            // 单一发送
             request.setAction(ConstEnum.ALIYUN.SMS_SENDSMS_FIELD.getValue());
             request.putQueryParameter(ConstEnum.ALIYUN.SMS_PHONE_NUMBER_FIELD.getValue(), phoneList.get(0));
+            request.putQueryParameter(ConstEnum.ALIYUN.SMS_SIGN_NAME_FIELD.getValue(), ConstEnum.ALIYUN.SMS_SIGN_NAME.getValue());
+            String paramsJson = ToolsKit.toJsonString(messageDto.getTemplateParam());
+            request.putQueryParameter(ConstEnum.ALIYUN.SMS_PARAM_FIELD.getValue(), paramsJson);
         }
-        request.putQueryParameter(ConstEnum.ALIYUN.SMS_SIGN_NAME_FIELD.getValue(), ConstEnum.ALIYUN.SMS_SIGN_NAME.getValue());
-        request.putQueryParameter(ConstEnum.ALIYUN.SMS_CODE_FIELD.getValue(), messageDto.getTemplateCode());
-        String paramsJson = ToolsKit.toJsonString(messageDto.getTemplateParam());
-        request.putQueryParameter(ConstEnum.ALIYUN.SMS_PARAM_FIELD.getValue(), paramsJson);
+
         try {
             CommonResponse response = getClient().getCommonResponse(request);
             String json = response.getData();
@@ -99,6 +118,6 @@ public class SmsUtils implements IClient<IAcsClient> {
         } catch (Exception e) {
             logger.warn(e.getMessage(),e);
         }
-        return null;
+        return new SmsResult();
     }
 }
