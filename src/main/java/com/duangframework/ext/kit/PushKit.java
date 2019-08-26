@@ -103,7 +103,7 @@ public class PushKit {
 
     private boolean validatorRequestObj() {
         try {
-            VtorFactory.validator(pushRequest);
+//            VtorFactory.validator(pushRequest);
             return true;
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), e);

@@ -109,17 +109,17 @@ public abstract class AbstractExcel<T> implements IExcel<T> {
     protected void createStyle(TableStyle tableStyle) {
         Font headFont = new Font();
         headFont.setBold(true);
-        headFont.setFontHeightInPoints((short)22);
-        headFont.setFontName("楷体");
+        headFont.setFontHeightInPoints((short)12);
+        headFont.setFontName("黑体");
         tableStyle.setTableHeadFont(headFont);
-        tableStyle.setTableHeadBackGroundColor(IndexedColors.BLUE);
+        tableStyle.setTableHeadBackGroundColor(IndexedColors.SKY_BLUE);
 
         Font contentFont = new Font();
         contentFont.setBold(true);
-        contentFont.setFontHeightInPoints((short)22);
-        contentFont.setFontName("黑体");
+        contentFont.setFontHeightInPoints((short)12);
+        contentFont.setFontName("宋体");
         tableStyle.setTableContentFont(contentFont);
-        tableStyle.setTableContentBackGroundColor(IndexedColors.GREEN);
+        tableStyle.setTableContentBackGroundColor(IndexedColors.WHITE);
     }
 
     /**
