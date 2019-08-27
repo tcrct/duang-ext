@@ -22,7 +22,7 @@ hs_err_pid*
 /.settings/
 /bin/
 /.idea/
-App.java
+# App.java
 AppTest.java
 ConstEnum.java
 
