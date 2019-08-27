@@ -75,8 +75,8 @@ public class GetUiPushAlgorithm implements IPushAlgorithm {
     public PushResponse pushAllDevice(PushRequest pushRequest) {
         try {
             GetUiPushRequestDto requestDto = GetUiPushUtils.pushMessageToApp(pushRequest);
-            System.out.println(requestDto);
             IPushResult pushResult =  getClient().pushMessageToApp(requestDto.getAppMessage());
+//            System.out.println(ToolsKit.toJsonString(pushResult));
             return GetUiPushUtils.createPushResponse(pushResult);
         } catch (Exception e) {
             return new PushResponse(RET_ERROR_CODE, RET_ERROR, e.getMessage());

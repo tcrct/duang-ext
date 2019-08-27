@@ -11,26 +11,29 @@ import com.gexin.rp.sdk.base.impl.AppMessage;
 import com.gexin.rp.sdk.base.impl.ListMessage;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
 import com.gexin.rp.sdk.base.impl.Target;
+import com.gexin.rp.sdk.base.payload.APNPayload;
 import com.gexin.rp.sdk.base.sms.SmsInfo;
 import com.gexin.rp.sdk.base.uitls.AppConditions;
 import com.gexin.rp.sdk.base.uitls.MD5Util;
 import com.gexin.rp.sdk.template.LinkTemplate;
 import com.gexin.rp.sdk.template.NotificationTemplate;
+import com.gexin.rp.sdk.template.TransmissionTemplate;
 import com.gexin.rp.sdk.template.style.Style0;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  *  个推
+ *  demo: http://docs.getui.com/download.html
  * @author laotang
  */
 public class GetUiPushUtils {
 
     private static final String RESULT_KEY_FIELD = "result";
+    private static final String STATUS_KEY_FIELD = "status";
     private static final String OK_FIELD = "ok";
     private static Integer RET_SUCCESS_CODE = 0;
     private static Integer RET_ERROR_CODE = 1;
@@ -39,10 +42,11 @@ public class GetUiPushUtils {
 
     public static PushResponse createPushResponse(IPushResult pushResult) {
         PushResponse pushResponse = null;
+        System.out.println("#############pushResult: " + ToolsKit.toJsonString(pushResult));
         Map<String,Object> resMap = pushResult.getResponse();
         String result = resMap.get(RESULT_KEY_FIELD).toString();
         if(OK_FIELD.equalsIgnoreCase(result)) {
-            pushResponse = new PushResponse(RET_SUCCESS_CODE, RET_SUCCESS, "");
+            pushResponse = new PushResponse(RET_SUCCESS_CODE, result +"_"+ resMap.get(STATUS_KEY_FIELD).toString(), "");
         } else {
             pushResponse = new PushResponse(RET_ERROR_CODE, RET_ERROR, result);
         }
@@ -63,6 +67,10 @@ public class GetUiPushUtils {
         style.setRing(true);
         style.setVibrate(true);
         style.setClearable(true);
+//        style.setChannel("通知渠道id");
+//        style.setChannelName("通知渠道名称");
+        // 设置通知渠道重要性
+        style.setChannelLevel(3);
         return style;
     }
 
@@ -91,9 +99,14 @@ public class GetUiPushUtils {
         singleMessage.setOffline(true);
         // 离线有效时间，单位为毫秒，可选
         singleMessage.setOfflineExpireTime(24 * 3600 * 1000);
-        singleMessage.setData(getNotificationTemplate(pushRequest.getTitle(), pushRequest.getContent()));
+        if(pushRequest.isAndroid()) {
+            singleMessage.setData(getNotificationTemplate(pushRequest.getTitle(), pushRequest.getContent()));
+        } else {
+            singleMessage.setData(getTransmissionTemplate(pushRequest.getTitle(), pushRequest.getContent()));
+        }
         // 可选，1为wifi，0为不限制网络环境。根据手机处于的网络情况，决定是否下发
         singleMessage.setPushNetWorkType(0);
+        singleMessage.setPriority(1);
         Target target = new Target();
         target.setAppId(ConstEnum.GETUI.APP_ID.getValue());
         target.setClientId(pushRequest.getAccount());
@@ -115,8 +128,23 @@ public class GetUiPushUtils {
         template.setAppId(ConstEnum.GETUI.APP_ID.getValue());
         template.setAppkey(ConstEnum.GETUI.ACCESS_KEY_SECRET.getValue());
         template.setStyle(createStyle0(title, content));
+        //ios消息推送
+        template.setAPNInfo(getAPNPayload(title, content));
         // 透传消息设置，1为强制启动应用，客户端接收到消息后就会立即启动应用；2为等待应用启动
-        template.setTransmissionType(2);
+        template.setTransmissionType(1);
+        template.setTransmissionContent(content);
+        return template;
+    }
+
+    private static TransmissionTemplate getTransmissionTemplate(String title,String content) {
+        TransmissionTemplate template = new TransmissionTemplate();
+        // 设置APPID与APPKEY
+        template.setAppId(ConstEnum.GETUI.APP_ID.getValue());
+        template.setAppkey(ConstEnum.GETUI.ACCESS_KEY_SECRET.getValue());
+        //ios消息推送
+        template.setAPNInfo(getAPNPayload(title, content));
+        // 透传消息设置，1为强制启动应用，客户端接收到消息后就会立即启动应用；2为等待应用启动
+        template.setTransmissionType(1);
         template.setTransmissionContent(content);
         return template;
     }
@@ -225,4 +253,47 @@ public class GetUiPushUtils {
         return null;
     }
 
+
+    private static APNPayload getAPNPayload(String title, String content) {
+        APNPayload payload = new APNPayload();
+        //在已有数字基础上加1显示，设置为-1时，在已有数字上减1显示，设置为数字时，显示指定数字
+        payload.setAutoBadge("+1");
+        payload.setContentAvailable(1);
+        //ios 12.0 以上可以使用 Dictionary 类型的 sound
+        payload.setSound("default");
+//        payload.setCategory("$由客户端定义");
+//        payload.addCustomMsg("由客户自定义消息key", "由客户自定义消息value");
+
+        //简单模式APNPayload.SimpleMsg
+//        payload.setAlertMsg(new APNPayload.SimpleAlertMsg("hello"));
+        payload.setAlertMsg(getDictionaryAlertMsg(title, content));  //字典模式使用APNPayload.DictionaryAlertMsg
+
+        //设置语音播报类型，int类型，0.不可用 1.播放body 2.播放自定义文本
+//        payload.setVoicePlayType(2);
+        //设置语音播报内容，String类型，非必须参数，用户自定义播放内容，仅在voicePlayMessage=2时生效
+        //注：当"定义类型"=2, "定义内容"为空时则忽略不播放
+//        payload.setVoicePlayMessage("定义内容");
+
+        // 添加多媒体资源
+//        payload.addMultiMedia(new MultiMedia().setResType(MultiMedia.MediaType.pic)
+//                .setResUrl("资源文件地址")
+//                .setOnlyWifi(true));
+
+        return payload;
+    }
+
+
+    private static APNPayload.DictionaryAlertMsg getDictionaryAlertMsg(String title, String content) {
+        APNPayload.DictionaryAlertMsg alertMsg = new APNPayload.DictionaryAlertMsg();
+        alertMsg.setBody(content);
+//        alertMsg.setActionLocKey("显示关闭和查看两个按钮的消息");
+//        alertMsg.setLocKey("loc-key1");
+//        alertMsg.addLocArg("loc-ary1");
+//        alertMsg.setLaunchImage("调用已经在应用程序中绑定的图形文件名");
+        // iOS8.2以上版本支持
+        alertMsg.setTitle(title);
+//        alertMsg.setTitleLocKey("自定义通知标题");
+//        alertMsg.addTitleLocArg("自定义通知标题组");
+        return alertMsg;
+    }
 }
