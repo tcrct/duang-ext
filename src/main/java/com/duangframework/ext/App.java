@@ -11,6 +11,7 @@ import com.duangframework.ext.push.PushRequest;
 import com.duangframework.ext.push.PushResponse;
 import com.duangframework.kit.ToolsKit;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +52,8 @@ public class App {
     }
 
     private static void push() {
-//        String account="927bf2b04a6a6628bb63e60282669b53"; //admin
-        String account= "6eafdfe256a53c3b6dba144793be49b9";
+        String account="927bf2b04a6a6628bb63e60282669b53"; //admin
+//        String account= "5b31eb838a9e3c723468c5009a3b6327";
 //        String account = "c192bfb82b34226acef5bf0fea463542";    // 1234
 //        PushResponse pushResponse = PushKit.duang().account("1017").title("这是一封迟来的告白").content("一段情要埋藏多少年！ABCDabcd!@#123").pushSingleAccount();
         PushResponse pushResponse = PushKit.duang().account(account)
