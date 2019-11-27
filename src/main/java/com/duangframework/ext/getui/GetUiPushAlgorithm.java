@@ -1,7 +1,6 @@
 package com.duangframework.ext.getui;
 
 import com.duangframework.ext.ConstEnum;
-import com.duangframework.ext.dto.sms.SmsMessage;
 import com.duangframework.ext.push.IPushAlgorithm;
 import com.duangframework.ext.push.PushRequest;
 import com.duangframework.ext.push.PushResponse;

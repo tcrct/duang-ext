@@ -12,14 +12,16 @@
 
     <distributionManagement>
         <repository>
-            <id>nexus</id>
+            <id>admin</id>
             <name>Releases</name>
-            <url>http://dev.signetz.com:7071/repository/maven-releases/</url>
+            <!--<url>http://dev.signetz.com:7071/repository/maven-releases/</url>-->
+            <url>http://192.168.8.212:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus</id>
+            <id>admin</id>
             <name>Snapshot</name>
-            <url>http://dev.signetz.com:7071/repository/maven-snapshots/</url>
+            <!--<url>http://dev.signetz.com:7071/repository/maven-snapshots/</url>-->
+            <url>http://192.168.8.212:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -32,8 +34,9 @@
 
     <repositories>
         <repository>
-            <id>getui-nexus</id>
-            <url>http://mvn.gt.igexin.com/nexus/content/repositories/releases/</url>
+            <id>admin</id>
+            <!--<url>http://mvn.gt.igexin.com/nexus/content/repositories/releases/</url>-->
+            <url>http://192.168.8.212:8081/repository/3rd_part/</url>
         </repository>
     </repositories>
 
@@ -72,7 +75,7 @@
         <xinge.version>1.2.0-SNAPSHOT</xinge.version>
         <easyexcel.version>1.1.2-beta5</easyexcel.version>
         <flying.version>9.1.18</flying.version>
-        <gexin.version>4.1.0.4</gexin.version>
+        <gexin.version>4.0.1.5</gexin.version>
     </properties>
 
     <dependencies>
@@ -116,7 +119,7 @@
             <artifactId>xinge</artifactId>
             <version>${xinge.version}</version>
             <scope>system</scope>
-            <systemPath>C:/workspace/IdeaProjects/duang-ext/lib/PushJavaSDK.jar</systemPath>
+            <systemPath>${project.basedir}/lib/PushJavaSDK.jar</systemPath>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
         <dependency>
@@ -128,12 +131,26 @@
         <dependency>
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf</artifactId>
-            <version>${flying.version}</version>
         </dependency>
         <dependency>
             <groupId>com.gexin.platform</groupId>
             <artifactId>gexin-rp-sdk-http</artifactId>
-            <version>${gexin.version}</version>
+            <version>4.1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gexin.platform</groupId>
+            <artifactId>gexin-rp-sdk-base</artifactId>
+            <version>4.0.0.30</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gexin.platform</groupId>
+            <artifactId>gexin-rp-sdk-template</artifactId>
+            <version>4.0.0.24</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gexin.platform</groupId>
+            <artifactId>gexin-rp-fastjson</artifactId>
+            <version>1.0.0.3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
         <dependency>
