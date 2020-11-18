@@ -10,20 +10,20 @@
     <name>duang-ext</name>
     <url>http://www.duangframework.com</url>
 
-    <distributionManagement>
-        <repository>
-            <id>admin</id>
-            <name>Releases</name>
-            <!--<url>http://dev.signetz.com:7071/repository/maven-releases/</url>-->
-            <url>http://192.168.8.212:8081/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>admin</id>
-            <name>Snapshot</name>
-            <!--<url>http://dev.signetz.com:7071/repository/maven-snapshots/</url>-->
-            <url>http://192.168.8.212:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>admin</id>-->
+<!--            <name>Releases</name>-->
+<!--            &lt;!&ndash;<url>http://dev.signetz.com:7071/repository/maven-releases/</url>&ndash;&gt;-->
+<!--            <url>http://192.168.8.212:8081/repository/maven-releases/</url>-->
+<!--        </repository>-->
+<!--        <snapshotRepository>-->
+<!--            <id>admin</id>-->
+<!--            <name>Snapshot</name>-->
+<!--            &lt;!&ndash;<url>http://dev.signetz.com:7071/repository/maven-snapshots/</url>&ndash;&gt;-->
+<!--            <url>http://192.168.8.212:8081/repository/maven-snapshots/</url>-->
+<!--        </snapshotRepository>-->
+<!--    </distributionManagement>-->
 
     <!--<repositories>-->
         <!--<repository>-->
@@ -32,13 +32,13 @@
         <!--</repository>-->
     <!--</repositories>-->
 
-    <repositories>
-        <repository>
-            <id>admin</id>
-            <!--<url>http://mvn.gt.igexin.com/nexus/content/repositories/releases/</url>-->
-            <url>http://192.168.8.212:8081/repository/3rd_part/</url>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>admin</id>-->
+<!--&lt;!&ndash;            <url>http://mvn.gt.igexin.com/nexus/content/repositories/releases/</url>&ndash;&gt;-->
+<!--&lt;!&ndash;            <url>http://192.168.8.212:8081/repository/3rd_part/</url>&ndash;&gt;-->
+<!--        </repository>-->
+<!--    </repositories>-->
 
     <build>
         <defaultGoal>compile</defaultGoal>
@@ -132,6 +132,7 @@
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf</artifactId>
         </dependency>
+        <!--
         <dependency>
             <groupId>com.gexin.platform</groupId>
             <artifactId>gexin-rp-sdk-http</artifactId>
@@ -152,6 +153,7 @@
             <artifactId>gexin-rp-fastjson</artifactId>
             <version>1.0.0.3</version>
         </dependency>
+        -->
         <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
         <dependency>
             <groupId>com.itextpdf</groupId>
